@@ -90,11 +90,17 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "Petopia-Frontend:build"
+                        "browserTarget": "Petopia-Frontend:build",
+                        "optimization": false,
+                        "sourceMap": true,
+                        "vendorChunk": false,
+                        "buildOptimizer": false,
+                        "aot": false
                     },
                     "configurations": {
                         "production": {
                             "browserTarget": "Petopia-Frontend:build:production"
+
                         }
                     }
                 },
