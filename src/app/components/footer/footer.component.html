@@ -1,0 +1,62 @@
+<!-- footer_start -->
+<footer class="footer">
+    <div class="footer_top">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-4 col-md-6 col-lg-3">
+                    <div class="footer_widget">
+                        <h3 class="footer_title">
+                            Contact Us
+                        </h3>
+                        <ul class="address_line">
+                            <li>+201099777712</li>
+                            <li><a href="#">petopiaclinic@gmail.com </a></li>
+                            <li>170 portsaid street, Alexandria, Egypt</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-4  col-md-6 col-lg-3">
+                    <div class="footer_widget">
+                        <h3 class="footer_title">
+                            Our Services
+                        </h3>
+                        <ul class="links">
+                            <div *ngFor="let s of service; let i of index">
+                                <li>{{s.service_name}}</li>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-md-6 col-lg-3 ">
+                    <div class="footer_widget">
+                        <div class="circular--landscape">
+                            <a href="#">
+                                <img src="assets/img/logo.jpeg" alt="">
+                            </a>
+                        </div>
+                        <p class="address_text">170 Port Said Street, Al Ibrahimeyah Bahri WA Sidi Gaber, Qism Bab Sharqi, Alexandria Governorate Alexandria, Egypt 21500
+                        </p>
+                        <div class="socail_links">
+                            <ul>
+                                <li>
+                                    <a href="https://www.facebook.com/petopiaclinic/">
+                                        <i class="ti-facebook"></i>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="https://www.instagram.com/petopiavetclinic/?hl=en&fbclid=IwAR0-eGXMKmCuZYiITlxPgkD3usM2rRD75Sm_Sk_kW8sGwXROQYkzj2XhD4o">
+                                        <i class="fa fa-instagram"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</footer>

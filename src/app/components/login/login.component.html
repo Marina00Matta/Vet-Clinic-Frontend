@@ -1,0 +1,42 @@
+<div id="top"></div>
+<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins ">
+    <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+            <div class="card-body">
+                <h2 class="title">Sign In</h2>
+                <form #loginForm=ngForm (ngSubmit)="onSubmit()">
+                    <div class="alert alert-danger" [hidden]="!error">
+                        {{error}}
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-12">
+                            <div class="input-group">
+                                <label class="label">Phone Number</label>
+                                <input class="input--style-4" type="text" name="phone_number" placeholder="Phone Number" [(ngModel)]="form.phone_number" required>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-12">
+                            <div class="input-group">
+                                <label class="label">password</label>
+                                <input class="input--style-4" type="password" name="password" placeholder="Password" [(ngModel)]="form.password" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-t-15 text-center">
+                        <button class="btn btn--radius-2 btn--blue" type="submit" [disabled]="!loginForm.valid">Login</button>
+                    </div>
+                </form>       
+                <div class="container m-3 ">
+                    <div class="p-t-15 text-center">
+                         <button type="button" class="btn btn--radius-2 btn--blue" [routerLink]="'/signup'"> Create an account</button>     
+                    </div>
+                </div>
+                </div>  
+                
+  
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<div  id="top"></div>
+<app-navbar></app-navbar>
+<!-- bradcam_area_start -->
+<div class="bradcam_area breadcam_bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="bradcam_text text-center">
+                    <h3>{{service.service_name}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- bradcam_area_end -->
+
+<!-- Start Align Area -->
+<div class="whole-wrap">
+    <div class="container box_1170">
+        <div class="section-top-border">
+            <h3 class="mb-30"> </h3>
+            <div class="row">
+                <div class="col-md-3">
+                    <img src="assets/img/service/{{service.service_name}}.png" alt="" class="img-fluid">
+                </div>
+                <div class="col-md-9 mt-sm-20">
+                    <p> {{service.description}}</p>
+                </div>
+            </div>
+            <div class="service_content text-left mt-5 ml-5" style="padding-top: 20px;" *ngIf="loggedIn">
+                <a [routerLink]="['/reservation', service.service_name, service.id]" class="genric-btn danger circle"  >Make Reservation</a>
+
+            </div>
+
+            <div class="service_content text-left mt-5 ml-5" style="padding-top: 20px;" *ngIf="!loggedIn">
+                <a [routerLink]="['/login']" class="genric-btn danger circle" >Make Reservation</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+
+ 

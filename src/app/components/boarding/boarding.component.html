@@ -1,0 +1,51 @@
+<!-- <p>boarding works!</p> -->
+<div id="top"></div>
+<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins ">
+    <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+            <div class="card-body">
+                <h2 class="title">Boarding Form</h2>
+                <form #reserve=ngForm (ngSubmit)="onSubmit()">
+                    <div [hidden]="!error">
+                        <div class="alert alert-danger" [hidden]="!error.end_date">
+                            {{error.end_date}}
+                        </div>
+                    </div>
+                    <div class=" row row-space ">
+                        <div class="col-6 ">
+                            <div class="input-group ">
+                                <input class="input--style-4" type="text" value="" name="pet_name" hidden>
+                            </div>
+                        </div>
+
+                        <div class="col-6 ">
+                            <div class="input-group ">
+                                <input class="input--style-4" type="number" value="form.reservation_id" name="reservation_id" hidden>
+                            </div>
+                        </div>
+
+                        <div class="col-6 mb-5">
+                            <div class="input-group ">
+                                <label class="label ">End Date</label>
+                                <input class="input--style-4 js-datepicker " style="height:50px; " type="date" name="date" [(ngModel)]="form.end_date">
+                            </div>  
+                        </div>
+                    </div>
+                    <div class="p-t-15 text-center mt-4">
+                        <!-- <div class="col-6 text-center"> -->
+                            <button class="btn btn--radius-2 btn--blue " type="submit" [disabled]="!reserve.valid">Book</button> 
+                        <!-- </div> -->
+                    </div>
+                    <!-- <div class="p-t-15 text-center mt-4">
+                        <button class="btn btn--radius-2 btn--blue " type="submit" [disabled]="!reserve.valid">Book</button>
+                    </div> -->
+                </form>
+                <!-- <form method="DELETE"> -->
+                    <div class="p-t-15 text-center mt-4">
+                        <button (click)="onCancel()" class="btn btn--radius-2 btn--blue">Cancel</button>
+                    </div>
+                <!-- </form>  -->
+            </div>
+        </div>
+    </div>
+</div>

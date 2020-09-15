@@ -1,0 +1,52 @@
+<app-navbar></app-navbar>
+<div id="top"></div>
+<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins ">
+    <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+            <div class="card-body">
+                <h2 class="title">Reservation Form</h2>
+                <div [hidden]="!error">
+                    <div class="alert alert-danger" [hidden]="!error.pet_name">
+                        {{error.pet_name}}
+                    </div>
+                    <div class="alert alert-danger" [hidden]="!error.date">
+                        {{error.date}}
+                    </div>
+                </div>  
+                <form #reserve=ngForm (ngSubmit)="onSubmit()">
+                    <div class=" row row-space ">
+                        <!-- <div class="col-12 ">
+                            <div class="input-group">
+                                <label class="label"> Current Service</label>
+                                <input class="input--style-4" type="text" value="{{service.service_name}}" name="service_name" readonly>
+                            </div>
+                        </div> -->
+                        <div class="col-6 ">
+                            <div class="input-group ">
+                                <label class="label ">Date</label>
+                                <input class="input--style-4 js-datepicker " style="height:50px; " type="date" name="date" [(ngModel)]="form.date">
+                            </div>
+                        </div>
+                        <div class="col-6 ">
+                            <div class="input-group ">
+                                <label class="label ">Pet Name</label>
+                                <select name="pet_name " class="input--style-4 " style="height:50px; " [(ngModel)]="form.pet_name">
+                                    <option selected>Select your pet's name</option>
+                                        <option *ngFor="let pet of pet; let i of index " >{{pet.pet_name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-space ">
+                    </div>
+                    <div *ngIf="service.service_name != 'Boarding' " class="p-t-15 text-center mt-4 ">
+                        <button class="btn btn--radius-2 btn--blue " type="submit" [disabled]="!reserve.valid">Book</button>
+                    </div>
+                    <div *ngIf="service.service_name == 'Boarding' " class="p-t-15 text-center mt-4 ">
+                        <button class="btn btn--radius-2 btn--blue " type="submit" [disabled]="!reserve.valid">Next</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
