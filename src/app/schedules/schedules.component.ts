@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { ScheduleComponent, DayService, WeekService, WorkWeekService, MonthService, AgendaService } from '@syncfusion/ej2-angular-schedule';
 
 @Component({
   selector: 'app-schedules',
-  templateUrl: './schedules.component.html',
-  styleUrls: ['./schedules.component.scss']
+  providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService],
+
+  // templateUrl: './schedules.component.html',
+  styleUrls: ['./schedules.component.scss'],
+  template: `<ejs-schedule id="Schedule" [currentDate]="CurrentDate"
+   [appointmentSettings]="AppointmentSettings"
+   (actionComplete)="onActionComplete($event)"> </ejs-schedule>`
 })
 export class SchedulesComponent implements OnInit {
 
@@ -37,5 +43,9 @@ export class SchedulesComponent implements OnInit {
   }
   ngOnInit(): void {
   }
+  onActionComplete(args) {
+    // console.log('args',args);
+    console.log('data ',args.data);
+    }
 
 }
