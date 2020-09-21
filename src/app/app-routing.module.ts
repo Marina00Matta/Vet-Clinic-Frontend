@@ -11,7 +11,7 @@ import { PetComponent } from './components/pet/pet.component';
 import { BoardingComponent } from './components/boarding/boarding.component';
 import { BeforeLoginService } from './services/before-login.service';
 import { AfterLoginService } from './services/after-login.service';
-
+import { SchedulesComponent } from './schedules/schedules.component';
 
 const routes: Routes = [
   {
@@ -43,6 +43,10 @@ const routes: Routes = [
   {
     path: 'calender',
     component: CalendarComponent
+  },
+  {
+    path: 'cal',
+    component: SchedulesComponent
   },
   {
     path: 'reservation/:service/:id',

@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
+    "@syncfusion/ej2-angular-schedule": "^18.2.57",
     "angular-calendar": "^0.28.15",
     "angularx-flatpickr": "^6.3.1",
     "bootstrap": "^4.5.0",
@@ -29,7 +30,8 @@
     "ng-snotify": "^9.0.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.10.2",
+    "@syncfusion/ej2-material-theme": "~18.2.55"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.901.9",
@@ -42,12 +44,12 @@
     "codelyzer": "^5.1.2",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
-    "karma": "~4.4.1",
+    "karma": "^5.2.2",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "~2.1.0",
     "karma-jasmine": "~3.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
-    "protractor": "~5.4.3",
+    "protractor": "^7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~3.8.3"

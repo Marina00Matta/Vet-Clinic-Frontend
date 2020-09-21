@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule,NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +27,8 @@ import { PetsService } from './services/pets.service';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { BoardingComponent } from './components/boarding/boarding.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { ScheduleModule, RecurrenceEditorModule } from '@syncfusion/ej2-angular-schedule';
+import { SchedulesComponent } from './schedules/schedules.component';
 
 
 @NgModule({
@@ -49,7 +51,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     
     ReservationComponent,
     PetComponent,
-    BoardingComponent
+    BoardingComponent,
+    SchedulesComponent
     
   ],
   imports: [
@@ -58,7 +61,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     FormsModule,
     HttpClientModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
-    SnotifyModule
+    SnotifyModule,
+    ScheduleModule, RecurrenceEditorModule
     
   ],
   providers: [AthenticationService,TokenService,PetsService ,AuthService,AfterLoginService,BeforeLoginService,{ provide: 'SnotifyToastConfig', useValue: ToastDefaults},
@@ -67,6 +71,10 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     useClass: TokenInterceptorService,
     multi: true
   }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+    NO_ERRORS_SCHEMA
+  ],
 })
 export class AppModule { }
