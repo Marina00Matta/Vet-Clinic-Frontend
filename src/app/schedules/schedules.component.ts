@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ScheduleComponent, DayService, WeekService, WorkWeekService, MonthService, AgendaService } from '@syncfusion/ej2-angular-schedule';
+import { getMinutes } from 'date-fns';
 
 @Component({
   selector: 'app-schedules',
@@ -45,7 +46,16 @@ export class SchedulesComponent implements OnInit {
   }
   onActionComplete(args) {
     // console.log('args',args);
-    console.log('data ',args.data);
+    console.log((args.data[0].EndTime.getHours())+':'+(args.data[0].EndTime.getMinutes()));
+    console.log(args.data[0].EndTime.toLocaleDateString());
+    
     }
 
 }
+
+// args.data[0].EndTime.getDate()
+// args.data[0].StartTime.getUTCDate()
+// getMonth()
+// getFullYear()
+// getDate()
+// (args.data[0].EndTime.getDate(),args.data[0].EndTime.getMonth(),args.data[0].EndTime.getFullYear())

@@ -179,6 +179,8 @@ export class CalendarComponent  {
     ];
   }
 
+
+
   deleteEvent(eventToDelete: CalendarEvent) {
     this.events = this.events.filter((event) => event !== eventToDelete);
   }
