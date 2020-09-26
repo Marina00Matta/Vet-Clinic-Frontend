@@ -3,26 +3,56 @@ import { ScheduleComponent, DayService, WeekService, WorkWeekService, MonthServi
 import { getMinutes } from 'date-fns';
 import { ScheduleService } from 'src/app/services/schedule.service';
 import { TokenService } from 'src/app/services/token.service';
+import { DateTimePicker } from '@syncfusion/ej2-calendars';
+import { DropDownList } from '@syncfusion/ej2-dropdowns';
+// import { eventData } from './datasource.ts';
+
+import { Schedule, Day, Week, WorkWeek, Month, Agenda, PopupOpenEventArgs } from '@syncfusion/ej2-schedule';
 
 @Component({
   selector: 'app-schedules',
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService],
-  // templateUrl: './schedules.component.html',
+  templateUrl: './schedules.component.html',
   styleUrls: ['./schedules.component.scss'],
-  template: `<ejs-schedule id="Schedule" [currentDate]="CurrentDate"
-   [appointmentSettings]="AppointmentSettings"
-   (actionComplete)="onActionComplete($event)"> </ejs-schedule>`
+//   template: `<ejs-schedule id="Schedule" [currentDate]="CurrentDate"
+//   contextMenuSettings.enable=true 
+//   [contextMenuSettings.menuItems]=scheduleMenuItems
+//    [appointmentSettings]="AppointmentSettings"
+//    (actionComplete)="onActionComplete($event)"> </ejs-schedule>`
 })
+
+
 export class SchedulesComponent implements OnInit {
 
   public CurrentDate;
+  public scheduleMenuItems;
   public AppointmentSettings: any;
   public scheduleObj: ScheduleComponent;
+  
   constructor(private ScheduleService: ScheduleService, private token :TokenService) {
+Schedule.Inject(Day, Week, WorkWeek, Month, Agenda);
+
       this.CurrentDate = new Date();
       this.AppointmentSettings = {
       };
+      this.scheduleMenuItems = {
+        appointment: [{
+            id: "open",
+            text: "Open Appointment"
+        }, {
+            id: "delete",
+            text: "Delete Appointment"
+        }, {
+            id: "option1",
+            text: "User Option 1"
+        }],
+        cells: [{
+            id: "celloption1",
+            text: "Custom Option 1"
+        }]
+    };
   }
+  
 
   onCellClick(args) {
       /* Do further actions here */
@@ -31,6 +61,35 @@ export class SchedulesComponent implements OnInit {
       console.log(args,'args')
   }
   ngOnInit(): void {
+
+    let scheduleObj: Schedule = new Schedule({
+      width: '100%',
+      height: '550px',
+      selectedDate: new Date(2018, 1, 15),
+      showQuickInfo: false,
+      editorTemplate: '#EventEditorTemplate',
+          popupOpen: (args: PopupOpenEventArgs) => {
+              if (args.type === 'Editor') {
+                  let statusElement: HTMLInputElement = args.element.querySelector('#EventType') as HTMLInputElement;
+                  if (!statusElement.classList.contains('e-dropdownlist')) {
+                      let dropDownListObject: DropDownList = new DropDownList({
+                          placeholder: 'Choose status', value: statusElement.value,
+                          dataSource: ['New', 'Requested', 'Confirmed']
+                      });
+                      dropDownListObject.appendTo(statusElement);
+                  }
+                  let startElement: HTMLInputElement = args.element.querySelector('#StartTime') as HTMLInputElement;
+                  if (!startElement.classList.contains('e-datetimepicker')) {
+                      new DateTimePicker({ value: new Date(startElement.value) || new Date() }, startElement);
+                  }
+                  let endElement: HTMLInputElement = args.element.querySelector('#EndTime') as HTMLInputElement;
+                  if (!endElement.classList.contains('e-datetimepicker')) {
+                      new DateTimePicker({ value: new Date(endElement.value) || new Date() }, endElement);
+                  }
+              }
+          },
+        });
+        scheduleObj.appendTo('#Schedule');
   }
 
 
@@ -97,3 +156,4 @@ export class SchedulesComponent implements OnInit {
 // getFullYear()
 // getDate()
 // (args.data[0].EndTime.getDate(),args.data[0].EndTime.getMonth(),args.data[0].EndTime.getFullYear())
+
