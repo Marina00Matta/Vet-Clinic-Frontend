@@ -57,7 +57,7 @@ export class PetComponent implements OnInit {
       drug_allergies:f.value.allergies,
       current_diet:f.value.diet,
       current_medication:f.value.meds,
-      previous_problems:f.value.problems,
+      // previous_problems:f.value.problems,
 
     }
     console.log(JSON.stringify(pet,null,2));
