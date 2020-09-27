@@ -56,7 +56,6 @@ export class SchedulesComponent implements OnInit {
   }
 
   onActionComplete(args) {
-    // console.log('args',args);
     var x = args.data[0].StartTime.getMonth();
     var y = x + 1;
     console.log(y);
@@ -76,9 +75,6 @@ export class SchedulesComponent implements OnInit {
     console.log(args.data[0].EndTime.getMonth())
     console.log(typeof(args.data[0].EndTime));
   
-      
-      
-    // });
     }
     onSubmit(form: NgForm){
         console.log(form.value);
