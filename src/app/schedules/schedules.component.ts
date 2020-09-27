@@ -7,7 +7,7 @@ import { DateTimePicker } from '@syncfusion/ej2-calendars';
 import { DropDownList } from '@syncfusion/ej2-dropdowns';
 // import { eventData } from './datasource.ts';
 import { PetsService } from 'src/app/services/pets.service';
-import { Pet } from 'src/app/Pet';
+
 import { NgForm } from '@angular/forms';
 
 
@@ -35,7 +35,8 @@ export class SchedulesComponent implements OnInit {
   public date;
   public time;
   public obj;
-  constructor(private ScheduleService: ScheduleService, private token :TokenService, private pets : PetsService) {
+  constructor(private ScheduleService: ScheduleService, private token :TokenService,
+     private pets : PetsService) {
       this.CurrentDate = new Date();
       this.AppointmentSettings = {
       };
@@ -48,7 +49,7 @@ export class SchedulesComponent implements OnInit {
 
   //to get all pets
   ngOnInit(): void {
-    this.pets.getPets().subscribe(
+    this.pets.getPetsByUser(this.client_id).subscribe(
         (data: any)=>{
           console.log('pets',data.data);
           this.pet = data.data;

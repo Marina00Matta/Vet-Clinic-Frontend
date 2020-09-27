@@ -27,4 +27,7 @@ export class PetsService {
    getPets(){
      return this.httpClient.get(this.PETOPIA_BACKEND + '/api/pets');
    }
+   getPetsByUser(userId){
+     return this.httpClient.get(this.PETOPIA_BACKEND + '/api/pets/' + userId);
+   }
 }

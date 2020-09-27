@@ -10,12 +10,10 @@
                 <div class="input-group ">
                     <label class="label ">Pet Name</label>
                     <select id="pet" ngModel name="pet_id" class="form-control" style="height:50px;" #petRef="ngModel" required>
+                        <option selected>Select your pet's name</option>        
                         <option *ngFor="let pet of pet" value={{pet.pet_id}} >{{pet?.pet_name}}</option>
                       </select>
-                    <!-- <select name="pet_name " class="input--style-4 " style="height:50px; " [(ngModel)]="form">
-                        <option selected>Select your pet's name</option>
-                            <option *ngFor="let pet of pet; let i of index " >{{pet.pet_name}}</option>
-                    </select> -->
+                   
                 </div>
             </div>
             <button type="submit" class="btn btn-md btn-primary" [disabled]="visitForm.invalid"><i class="fa fa-dot-circle-o"></i> Submit</button>
