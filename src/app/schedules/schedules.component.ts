@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ScheduleComponent, DayService, WeekService, WorkWeekService, MonthService, AgendaService } from '@syncfusion/ej2-angular-schedule';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ScheduleComponent, DayService,TimelineViews, WeekService, WorkWeekService, MonthService, AgendaService } from '@syncfusion/ej2-angular-schedule';
 import { getMinutes } from 'date-fns';
 import { ScheduleService } from 'src/app/services/schedule.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -7,9 +7,8 @@ import { DateTimePicker } from '@syncfusion/ej2-calendars';
 import { DropDownList } from '@syncfusion/ej2-dropdowns';
 // import { eventData } from './datasource.ts';
 import { PetsService } from 'src/app/services/pets.service';
-
+import { WorkHoursModel } from '@syncfusion/ej2-angular-schedule';
 import { NgForm } from '@angular/forms';
-
 
 import { Schedule, Day, Week, WorkWeek, Month, Agenda, PopupOpenEventArgs } from '@syncfusion/ej2-schedule';
 
@@ -18,6 +17,7 @@ import { Schedule, Day, Week, WorkWeek, Month, Agenda, PopupOpenEventArgs } from
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService],
   templateUrl: './schedules.component.html',
   styleUrls: ['./schedules.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 //   template: `<ejs-schedule id="Schedule" [currentDate]="CurrentDate"
 //   contextMenuSettings.enable=true 
 //   [contextMenuSettings.menuItems]=scheduleMenuItems
@@ -35,12 +35,18 @@ export class SchedulesComponent implements OnInit {
   public date;
   public time;
   public obj;
+  public workWeekDays = [1, 3, 5];
+  public scheduleHours: WorkHoursModel  = { highlight: true, start: '11:00', end: '20:00' };
+ 
   constructor(private ScheduleService: ScheduleService, private token :TokenService,
      private pets : PetsService) {
       this.CurrentDate = new Date();
       this.AppointmentSettings = {
       };
+    
   }
+
+  
   //to get logged user
   user_name = localStorage.getItem('user_name');
   my_token = this.token.get();
@@ -49,6 +55,20 @@ export class SchedulesComponent implements OnInit {
 
   //to get all pets
   ngOnInit(): void {
+   this.workWeekDays = [1, 3, 5];
+
+//     Schedule.Inject(Week, WorkWeek, Month, TimelineViews);
+// let scheduleObj: Schedule = new Schedule({
+//     width: '100%',
+//     height: '550px',
+//     selectedDate: new Date(),
+//     currentView: 'WorkWeek',
+//     views: ['Week', 'WorkWeek', 'Month', 'TimelineWeek', 'TimelineWorkWeek'],
+//     workDays: [1 , 2 , 3, 5],
+//     // eventSettings: { dataSource: scheduleData }
+// });
+// scheduleObj.appendTo('#Schedule');
+
     this.pets.getPetsByUser(this.client_id).subscribe(
         (data: any)=>{
           console.log('pets',data.data);
@@ -72,9 +92,25 @@ export class SchedulesComponent implements OnInit {
     }
     console.log(args.data[0].EndTime.toLocaleDateString());
     console.log((args.data[0].EndTime.getFullYear())+'-'+(y)+'-'+(args.data[0].EndTime.getDate()));
-    console.log('data ',args.data);
+    console.log('data ',args);
     console.log(args.data[0].EndTime.getMonth())
     console.log(typeof(args.data[0].EndTime));
+
+    if (args.requestType == "eventRemoved"){
+      console.log('deleted');
+      this.obj = {
+        date : this.date,
+        time : this.time ,
+        user_id : this.client_id,
+        pet_id : 1,
+        status : 'canceled'
+    }
+    this.ScheduleService.cancelVisit(this.obj).subscribe((res :any) =>{
+      console.log(res)
+        console.log(this.obj);
+        });
+
+    }
   
     }
     onSubmit(form: NgForm){
@@ -94,7 +130,7 @@ export class SchedulesComponent implements OnInit {
         //   (data)=>this.handleResponse(data),
         //   error=>this.handleError(error)
         // )
-        // localStorage.setItem('pet_name', this.form.pet_name);
+        localStorage.setItem('pet_id', form.value.pet_id);
         // localStorage.setItem('reservation_date', this.form.date);
     }
  

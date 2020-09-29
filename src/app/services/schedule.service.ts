@@ -14,4 +14,8 @@ export class ScheduleService {
   setVisit(body) {
     return this.httpClient.post(this.Visit_url + '/visits', body);  
  }
+
+ cancelVisit(body) {
+  return this.httpClient.put(this.Visit_url + '/visits/cancel', body);  
+}
 }

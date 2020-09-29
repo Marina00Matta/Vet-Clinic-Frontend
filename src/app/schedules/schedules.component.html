@@ -1,6 +1,13 @@
 <div class="container">
-<ejs-schedule width ='500px' height='500px' id="Schedule" [currentDate]="CurrentDate" [appointmentSettings]="AppointmentSettings" 
-(actionComplete)="onActionComplete($event)"></ejs-schedule>
+<ejs-schedule  width ='500px' height='500px' [workHours]="scheduleHours" id="Schedule" [currentDate]="CurrentDate" [appointmentSettings]="AppointmentSettings" 
+(actionComplete)="onActionComplete($event)"
+#scheduleObj [workDays]='[2,4,5]'
+[firstDayOfWeek]=2
+>
+<!-- <e-views>
+    <e-view option='Day'></e-view>
+</e-views> -->
+</ejs-schedule>
 
 </div>
 
@@ -18,7 +25,10 @@
             </div>
             <button type="submit" class="btn btn-md btn-primary" [disabled]="visitForm.invalid"><i class="fa fa-dot-circle-o"></i> Submit</button>
 
-   
-        
-    </form>
+   </form>
+    
     </div>
+<!-- 
+        <div id='container'>
+                <div id="Schedule" (actionComplete)="onActionComplete($event)"></div>
+        </div> -->
