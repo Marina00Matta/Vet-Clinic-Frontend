@@ -48,12 +48,11 @@ export class SchedulesComponent implements OnInit {
   public startHour: string = '10:00';
   public endHour: string = '17:00';
   public workHours: WorkHoursModel = { highlight: false };
-// public scheduleObj: ScheduleComponent;
+  public scheduleView: View = 'WorkWeek';
+  public workDays: number[] = [1, 3, 4, 5];
+  public showWeekend: boolean = false;
   constructor(private ScheduleService: ScheduleService, private token :TokenService,
      private pets : PetsService, private services : ServicesService) {
-      this.CurrentDate = new Date();
-      this.AppointmentSettings = {
-      };
     
   }
 
@@ -87,23 +86,41 @@ export class SchedulesComponent implements OnInit {
         for (let x in data.data){
           var date = data.data[x].date;
           var time = data.data[x].time;
-          console.log(date);
-          console.log(time);
-        var datetime = date+' '+time;
-        console.log(datetime);
-        var y= {
+          var datetime = date+' '+time;
+          console.log(datetime);
+          var y= {
           Id: data.data[x].id,
           Subject: data.data[x].status,
           StartTime: new Date(datetime),
-          EndTime: new Date(datetime)
-        };
-      this.visit.push(y);
-      console.log(this.visit);
-        }  
-        // 2020/11/7 06:00 AM
-        this.eventSettings = {dataSource:this.visit};
-
+          EndTime: new Date(datetime),
+          // IsBlock: true
+          };
+        this.visit.push(y);
+        console.log(this.visit);
+        }      
       });
+      this.ScheduleService.getAllVisits(this.client_id).subscribe(
+          (data: any)=>{
+            console.log('all visits',data.data);
+            for (let x in data.data){
+              var date = data.data[x].date;
+              var time = data.data[x].time;
+              var datetime = date+' '+time;
+              console.log(datetime);        
+              var y= {
+                    Id: data.data[x].id,
+                    Subject: 'Not Available',
+                    StartTime: new Date(datetime),
+                    EndTime: new Date(datetime),
+                    IsBlock: true 
+                 };         
+              this.visit.push(y);              
+            }  
+            console.log('all visits',this.visit);
+            this.eventSettings = {dataSource:this.visit};  
+            console.log('eventdata',this.eventSettings); 
+      });                           
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
   }
 
   public fields: Object = {  text: 'service_name', value: 'id' };
@@ -166,15 +183,6 @@ export class SchedulesComponent implements OnInit {
         // localStorage.setItem('reservation_date', this.form.date);
     }
  
-
-
-
-
- 
-
-  
-
-  
 
 }
 

@@ -1,7 +1,12 @@
 <div class="container">
-<ejs-schedule  width ='500px' height='500px' [startHour]="startHour" [endHour]="endHour" [workHours]="scheduleHours" id="Schedule" [eventSettings]="eventSettings" [currentDate]="CurrentDate" [appointmentSettings]="AppointmentSettings" 
+<ejs-schedule  width ='500px' height='500px'
+ [startHour]="startHour" [endHour]="endHour" 
+ id="Schedule" [eventSettings]="eventSettings"
+ [currentView]="scheduleView"
+[appointmentSettings]="AppointmentSettings" 
 (actionComplete)="onActionComplete($event)"
-#scheduleObj [workDays]='[1,3,5]'
+#scheduleObj [workDays]="workDays"
+[showWeekend]="showWeekend"
 [firstDayOfWeek]=2
 >
 <!-- <e-views>

@@ -21,4 +21,7 @@ export class ScheduleService {
 showVisits(userId) {
   return this.httpClient.get(this.Visit_url + '/visits/' + userId);  
 }
+getAllVisits(Id) {
+  return this.httpClient.get(this.Visit_url + '/visits/all/' + Id);  
+}
 }
