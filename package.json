@@ -19,7 +19,9 @@
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
+    "@syncfusion/ej2-angular-dropdowns": "^18.2.59",
     "@syncfusion/ej2-angular-schedule": "^18.2.57",
+    "@syncfusion/ej2-material-theme": "~18.2.55",
     "angular-calendar": "^0.28.15",
     "angularx-flatpickr": "^6.3.1",
     "bootstrap": "^4.5.0",
@@ -30,8 +32,7 @@
     "ng-snotify": "^9.0.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
-    "zone.js": "~0.10.2",
-    "@syncfusion/ej2-material-theme": "~18.2.55"
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.901.9",

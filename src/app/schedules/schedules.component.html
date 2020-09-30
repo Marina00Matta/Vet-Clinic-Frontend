@@ -1,18 +1,46 @@
 <div class="container">
-<ejs-schedule  width ='500px' height='500px' [workHours]="scheduleHours" id="Schedule" [currentDate]="CurrentDate" [appointmentSettings]="AppointmentSettings" 
+<ejs-schedule  width ='500px' height='500px' [startHour]="startHour" [endHour]="endHour" [workHours]="scheduleHours" id="Schedule" [eventSettings]="eventSettings" [currentDate]="CurrentDate" [appointmentSettings]="AppointmentSettings" 
 (actionComplete)="onActionComplete($event)"
-#scheduleObj [workDays]='[2,4,5]'
+#scheduleObj [workDays]='[1,3,5]'
 [firstDayOfWeek]=2
 >
 <!-- <e-views>
     <e-view option='Day'></e-view>
 </e-views> -->
 </ejs-schedule>
-
 </div>
 
+<!-- <div class="container">
+    <ejs-multiselect id='multiselectelement' [dataSource]='vegetableData' 
+    [fields]='fields'[placeholder]='placeholder' [popupHeight]='height'></ejs-multiselect>`
+
+</div> -->
 <div class="card-body">
     <form method="POST" #visitForm="ngForm" (ngSubmit)="onSubmit(visitForm)">
+            <div class="col-6 ">
+                <div class="container">
+                    <ejs-multiselect id='multiselectelement'  ngModel name="services" class="form-control" style="height:50px;"
+                     #serviceRef="ngModel" [dataSource]='vegetableData' 
+                    [fields]='fields'[placeholder]='placeholder' [popupHeight]='height'></ejs-multiselect>`
+                
+                </div>
+                <!-- <div class="input-group ">
+                     <label class="label ">service name</label>
+                    <select id="service" ngModel name="service_id" class="form-control" style="height:50px;" #petRef="ngModel" required>
+                        <option selected>Select your service</option>        
+                        <option *ngFor="let service of service" ngvalue={{service.id}} >{{service?.service_name}}</option>
+                      </select>
+                   
+                </div> -->
+            <!-- </div>  
+            <label class="label ">service name</label>
+            <div class="form-check" *ngFor="let service of service">
+                <input class="form-check-input"  [ngModel] name="service_id" 
+                id="service" type="radio" [ngvalue]="service.id">
+                <label class="form-check-label" for="{{service.service_name}}">
+                    {{service?.service_name}}
+                </label>
+            </div> -->
             <div class="col-6 ">
                 <div class="input-group ">
                     <label class="label ">Pet Name</label>
@@ -25,9 +53,6 @@
             </div>
             <button type="submit" class="btn btn-md btn-primary" [disabled]="visitForm.invalid"><i class="fa fa-dot-circle-o"></i> Submit</button>
 
-   </form>
-    
-    </div>
 <!-- 
         <div id='container'>
                 <div id="Schedule" (actionComplete)="onActionComplete($event)"></div>

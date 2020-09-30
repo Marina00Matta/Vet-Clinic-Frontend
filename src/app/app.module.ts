@@ -29,7 +29,7 @@ import { BoardingComponent } from './components/boarding/boarding.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { ScheduleModule, RecurrenceEditorModule } from '@syncfusion/ej2-angular-schedule';
 import { SchedulesComponent } from './schedules/schedules.component';
-
+import { MultiSelectModule } from '@syncfusion/ej2-angular-dropdowns';
 
 @NgModule({
   declarations: [
@@ -62,7 +62,8 @@ import { SchedulesComponent } from './schedules/schedules.component';
     HttpClientModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     SnotifyModule,
-    ScheduleModule, RecurrenceEditorModule
+    ScheduleModule, RecurrenceEditorModule,
+    MultiSelectModule
     
   ],
   providers: [AthenticationService,TokenService,PetsService ,AuthService,AfterLoginService,BeforeLoginService,{ provide: 'SnotifyToastConfig', useValue: ToastDefaults},

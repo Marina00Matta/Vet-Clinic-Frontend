@@ -9,12 +9,17 @@ import { DropDownList } from '@syncfusion/ej2-dropdowns';
 import { PetsService } from 'src/app/services/pets.service';
 import { WorkHoursModel } from '@syncfusion/ej2-angular-schedule';
 import { NgForm } from '@angular/forms';
+import { ServicesService } from 'src/app/services/services.service';
+import { CheckBoxSelectionService, FilteringEventArgs } from '@syncfusion/ej2-angular-dropdowns';
+import {EventSettingsModel, View, EventRenderedArgs, ResizeService, DragAndDropService
+} from '@syncfusion/ej2-angular-schedule';
 
-import { Schedule, Day, Week, WorkWeek, Month, Agenda, PopupOpenEventArgs } from '@syncfusion/ej2-schedule';
+
 
 @Component({
   selector: 'app-schedules',
-  providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService],
+  providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, CheckBoxSelectionService,
+    ResizeService, DragAndDropService],
   templateUrl: './schedules.component.html',
   styleUrls: ['./schedules.component.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -32,14 +37,20 @@ export class SchedulesComponent implements OnInit {
   public AppointmentSettings: any;
   public scheduleObj: ScheduleComponent;
   public  pet;
+  public service;
   public date;
   public time;
   public obj;
-  public workWeekDays = [1, 3, 5];
-  public scheduleHours: WorkHoursModel  = { highlight: true, start: '11:00', end: '20:00' };
- 
+  public visit:any = [];
+
+  public eventSettings:EventSettingsModel ;
+  // public scheduleHours: WorkHoursModel  = { highlight: true, start: '11:00', end: '20:00' };
+  public startHour: string = '10:00';
+  public endHour: string = '17:00';
+  public workHours: WorkHoursModel = { highlight: false };
+// public scheduleObj: ScheduleComponent;
   constructor(private ScheduleService: ScheduleService, private token :TokenService,
-     private pets : PetsService) {
+     private pets : PetsService, private services : ServicesService) {
       this.CurrentDate = new Date();
       this.AppointmentSettings = {
       };
@@ -52,29 +63,52 @@ export class SchedulesComponent implements OnInit {
   my_token = this.token.get();
   decoded = this.token.getTokenPayload(this.my_token);
   client_id = this.decoded.sub;
+  
+  public vegetableData: { [key: string]: Object }[];
 
   //to get all pets
   ngOnInit(): void {
-   this.workWeekDays = [1, 3, 5];
-
-//     Schedule.Inject(Week, WorkWeek, Month, TimelineViews);
-// let scheduleObj: Schedule = new Schedule({
-//     width: '100%',
-//     height: '550px',
-//     selectedDate: new Date(),
-//     currentView: 'WorkWeek',
-//     views: ['Week', 'WorkWeek', 'Month', 'TimelineWeek', 'TimelineWorkWeek'],
-//     workDays: [1 , 2 , 3, 5],
-//     // eventSettings: { dataSource: scheduleData }
-// });
-// scheduleObj.appendTo('#Schedule');
+   this.services.getServices().subscribe(
+    (data: any)=>{
+      console.log('service',data.data);
+      this.service = data.data;
+      this.vegetableData= this.service;
+    });
 
     this.pets.getPetsByUser(this.client_id).subscribe(
         (data: any)=>{
           console.log('pets',data.data);
           this.pet = data.data;
         });
+    this.ScheduleService.showVisits(this.client_id).subscribe(
+      (data: any)=>{
+        console.log('visits',data.data);
+        // this.visit = data.data;
+        for (let x in data.data){
+          var date = data.data[x].date;
+          var time = data.data[x].time;
+          console.log(date);
+          console.log(time);
+        var datetime = date+' '+time;
+        console.log(datetime);
+        var y= {
+          Id: data.data[x].id,
+          Subject: data.data[x].status,
+          StartTime: new Date(datetime),
+          EndTime: new Date(datetime)
+        };
+      this.visit.push(y);
+      console.log(this.visit);
+        }  
+        // 2020/11/7 06:00 AM
+        this.eventSettings = {dataSource:this.visit};
+
+      });
   }
+
+  public fields: Object = {  text: 'service_name', value: 'id' };
+  public height: string = '200px';
+  public placeholder: string = 'Select service';
 
   onActionComplete(args) {
     var x = args.data[0].StartTime.getMonth();
@@ -120,26 +154,19 @@ export class SchedulesComponent implements OnInit {
             time : this.time ,
             user_id : this.client_id,
             pet_id : form.value.pet_id,
-            status : 'Pending'
+            status : 'Pending',
+            services : form.value.services
         }
         this.ScheduleService.setVisit(this.obj).subscribe((res :any) =>{
       console.log(res)
         console.log(this.obj);
         });
-        // this.athentication.reservation(this.form).subscribe(
-        //   (data)=>this.handleResponse(data),
-        //   error=>this.handleError(error)
-        // )
-        localStorage.setItem('pet_id', form.value.pet_id);
+     
+        // localStorage.setItem('pet_id', form.value.pet_id);
         // localStorage.setItem('reservation_date', this.form.date);
     }
  
-//   onCellClick(args) {
-//       /* Do further actions here */
-//       console.log(this.CurrentDate)
-//       console.log(this.AppointmentSettings)
-//       console.log(args,'args')
-//   }
+
 
 
 
