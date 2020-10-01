@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ScheduleComponent, DayService,TimelineViews, WeekService, WorkWeekService, MonthService, AgendaService } from '@syncfusion/ej2-angular-schedule';
+import { ScheduleComponent, DayService, WeekService, WorkWeekService, MonthService, AgendaService } from '@syncfusion/ej2-angular-schedule';
 import { getMinutes } from 'date-fns';
 import { ScheduleService } from 'src/app/services/schedule.service';
 import { TokenService } from 'src/app/services/token.service';
 import { DateTimePicker } from '@syncfusion/ej2-calendars';
 import { DropDownList } from '@syncfusion/ej2-dropdowns';
-// import { eventData } from './datasource.ts';
 import { PetsService } from 'src/app/services/pets.service';
 import { WorkHoursModel } from '@syncfusion/ej2-angular-schedule';
 import { NgForm } from '@angular/forms';
 import { ServicesService } from 'src/app/services/services.service';
+import { AppointmentService } from 'src/app/services/appointment.service';
 import { CheckBoxSelectionService, FilteringEventArgs } from '@syncfusion/ej2-angular-dropdowns';
 import {EventSettingsModel, View, EventRenderedArgs, ResizeService, DragAndDropService
 } from '@syncfusion/ej2-angular-schedule';
@@ -25,11 +25,7 @@ import { Router,ActivatedRoute } from '@angular/router';
   templateUrl: './schedules.component.html',
   styleUrls: ['./schedules.component.scss'],
   encapsulation: ViewEncapsulation.None,
-//   template: `<ejs-schedule id="Schedule" [currentDate]="CurrentDate"
-//   contextMenuSettings.enable=true 
-//   [contextMenuSettings.menuItems]=scheduleMenuItems
-//    [appointmentSettings]="AppointmentSettings"
-//    (actionComplete)="onActionComplete($event)"> </ejs-schedule>`
+
 })
 
 
@@ -39,22 +35,21 @@ export class SchedulesComponent implements OnInit {
   public AppointmentSettings: any;
   public scheduleObj: ScheduleComponent;
   public  pet;
-  public service;
+  public service: { [key: string]: Object }[];;
   public date;
   public time;
   public obj;
   public visit:any = [];
-
   public eventSettings:EventSettingsModel ;
-  // public scheduleHours: WorkHoursModel  = { highlight: true, start: '11:00', end: '20:00' };
-  public startHour: string = '10:00';
+  public startHour: string = '11:00';
   public endHour: string = '17:00';
   public workHours: WorkHoursModel = { highlight: false };
   public scheduleView: View = 'WorkWeek';
-  public workDays: number[] = [0,1,2, 3, 4, 5,6];
+  public workDays: number[] ;
   public showWeekend: boolean = false;
   constructor(private ScheduleService: ScheduleService, private token :TokenService,
-     private pets : PetsService, private services : ServicesService, private router: Router) {
+     private pets : PetsService, private services : ServicesService, private router: Router,
+     private appointment : AppointmentService) {
     
   }
 
@@ -64,16 +59,28 @@ export class SchedulesComponent implements OnInit {
   my_token = this.token.get();
   decoded = this.token.getTokenPayload(this.my_token);
   client_id = this.decoded.sub;
-  
-  public vegetableData: { [key: string]: Object }[];
 
   //to get all pets
   ngOnInit(): void {
+    this.appointment.getAppointments().subscribe(
+      (data: any)=>{
+        console.log('appointments',data.data);
+        // this.startHour = data.data[0].start_time;
+        // this.endHour = data.data[0].end_time;
+        var y= [];
+        for (let x in data.data){
+          var day = data.data[x].day;
+          y.push(day);
+        }
+        this.workDays = y;  
+        console.log(this.workDays);  
+      }
+    );
    this.services.getServices().subscribe(
     (data: any)=>{
       console.log('service',data.data);
       this.service = data.data;
-      this.vegetableData= this.service;
+      // this.vegetableData= this.service;
     });
 
     this.pets.getPetsByUser(this.client_id).subscribe(
@@ -84,7 +91,6 @@ export class SchedulesComponent implements OnInit {
     this.ScheduleService.showVisits(this.client_id).subscribe(
       (data: any)=>{
         console.log('visits',data.data);
-        // this.visit = data.data;
         for (let x in data.data){
           var date = data.data[x].date;
           var time = data.data[x].time;
