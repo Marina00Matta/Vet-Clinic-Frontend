@@ -63,8 +63,8 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div *ngFor="let s of service; let i of index" class="col-lg-4 col-md-6">
-                    <div class="single_service" style="padding-bottom: 20px;">
+                <div id="service" *ngFor="let s of service; let i of index" class="col-lg-4 col-md-6">
+                    <div class="single_service" style="padding-bottom: 20px; height: 650px;">
                         <div class="service_thumb service_icon_bg_1 d-flex align-items-center justify-content-center" style="width: 200px; height: 180px;">
                             <div class="service_icon text-center">
                                 <picture>
@@ -75,9 +75,19 @@
                         <div class="service_content text-center">
                             <h3>{{s.service_name}}</h3>
                         </div>
-                        <div class="service_content text-center" style="padding-top: 20px;">
-                            <a [routerLink]="['/',s.service_name,s.id]" class="genric-btn danger circle">Details</a>
+                        <div>
+                            <h5> {{s.description}}</h5>
                         </div>
+                        <div class="service_content text-left mt-5 ml-5" style="padding-top: 20px;" *ngIf="loggedIn">
+                            <a [routerLink]="['/schedule']" class="genric-btn danger circle"  >Book Now</a>
+            
+                        </div>
+            
+                        <div class="service_content text-left mt-5 ml-5" style="padding-top: 20px;" *ngIf="!loggedIn">
+                            <a [routerLink]="['/login']" class="genric-btn danger circle" >Book Now</a>
+            
+                        </div>
+                   
                     </div>
                 </div>
             </div>
