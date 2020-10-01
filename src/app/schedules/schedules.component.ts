@@ -13,6 +13,8 @@ import { ServicesService } from 'src/app/services/services.service';
 import { CheckBoxSelectionService, FilteringEventArgs } from '@syncfusion/ej2-angular-dropdowns';
 import {EventSettingsModel, View, EventRenderedArgs, ResizeService, DragAndDropService
 } from '@syncfusion/ej2-angular-schedule';
+import { Router,ActivatedRoute } from '@angular/router';
+
 
 
 
@@ -49,10 +51,10 @@ export class SchedulesComponent implements OnInit {
   public endHour: string = '17:00';
   public workHours: WorkHoursModel = { highlight: false };
   public scheduleView: View = 'WorkWeek';
-  public workDays: number[] = [1, 3, 4, 5];
+  public workDays: number[] = [0,1,2, 3, 4, 5,6];
   public showWeekend: boolean = false;
   constructor(private ScheduleService: ScheduleService, private token :TokenService,
-  private pets : PetsService, private services : ServicesService) {
+     private pets : PetsService, private services : ServicesService, private router: Router) {
     
   }
 
@@ -174,17 +176,36 @@ export class SchedulesComponent implements OnInit {
             status : 'Pending',
             services : form.value.services
         }
-        this.ScheduleService.setVisit(this.obj).subscribe((res :any) =>{
-      console.log(res)
+        this.ScheduleService.setVisit(this.obj).subscribe((res)=>this.handleResponse(res))
+        
+      // console.log(res);
+      
+
         console.log(this.obj);
-        });
-     
+        };
+        
+    handleResponse(res){
+          this.token.handle(this.my_token)
+          // localStorage.setItem('reservation_id', data.reservation_id)
+          //   if(this.service_name == 'Boarding')
+          //   {
+          //     this.router.navigateByUrl('/boarding');
+          //   }
+          //   else
+          //   {
+              alert('Reservation made successfully');
+              this.router.navigateByUrl('/home');
+            // }
+        }
+        
         // localStorage.setItem('pet_id', form.value.pet_id);
         // localStorage.setItem('reservation_date', this.form.date);
     }
+
+    
  
 
-}
+
 
 // args.data[0].EndTime.getDate()
 // args.data[0].StartTime.getUTCDate()
