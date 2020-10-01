@@ -14,6 +14,7 @@ import { CheckBoxSelectionService, FilteringEventArgs } from '@syncfusion/ej2-an
 import {EventSettingsModel, View, EventRenderedArgs, ResizeService, DragAndDropService
 } from '@syncfusion/ej2-angular-schedule';
 import { Router,ActivatedRoute } from '@angular/router';
+// import { start } from 'repl';
 
 
 
@@ -41,8 +42,8 @@ export class SchedulesComponent implements OnInit {
   public obj;
   public visit:any = [];
   public eventSettings:EventSettingsModel ;
-  public startHour: string = '11:00';
-  public endHour: string = '17:00';
+  public startHour: string;
+  public endHour: string;
   public workHours: WorkHoursModel = { highlight: false };
   public scheduleView: View = 'WorkWeek';
   public workDays: number[] ;
@@ -65,8 +66,13 @@ export class SchedulesComponent implements OnInit {
     this.appointment.getAppointments().subscribe(
       (data: any)=>{
         console.log('appointments',data.data);
-        // this.startHour = data.data[0].start_time;
-        // this.endHour = data.data[0].end_time;
+        this.startHour = data.data[0].start_time.slice(0, 5);
+        this.endHour = data.data[0].end_time.slice(0, 5);
+        // this
+        // this.startHour = '12:00';
+        // this.endHour = '18:00';
+        console.log(this.startHour);
+        console.log(this.endHour);
         var y= [];
         for (let x in data.data){
           var day = data.data[x].day;

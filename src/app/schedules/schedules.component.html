@@ -1,41 +1,70 @@
-<div class="container">
-<ejs-schedule  width ='500px' height='500px'
- [startHour]="startHour" [endHour]="endHour" 
- id="Schedule" [eventSettings]="eventSettings"
- [currentView]="scheduleView"
-[appointmentSettings]="AppointmentSettings" 
-(actionComplete)="onActionComplete($event)"
-#scheduleObj [workDays]="workDays"
-[showWeekend]="showWeekend"
-[firstDayOfWeek]=2
->
+<div  id="top"></div>
+<app-navbar></app-navbar>
 
-</ejs-schedule>
-</div>
+
+
+
 
 <!-- <div class="container">
     <ejs-multiselect id='multiselectelement' [dataSource]='vegetableData' 
     [fields]='fields'[placeholder]='placeholder' [popupHeight]='height'></ejs-multiselect>`
 
 </div> -->
-<div class="card-body">
-    <form method="POST" #visitForm="ngForm" (ngSubmit)="onSubmit(visitForm)">
-            <div class="col-6 ">
-                <div class="container">
-                    <ejs-multiselect id='multiselectelement'  ngModel name="services" class="form-control" style="height:50px;"
-                     #serviceRef="ngModel" [dataSource]='service' 
-                    [fields]='fields'[placeholder]='placeholder' [popupHeight]='height'></ejs-multiselect>`
-                
-                </div>
-            <div class="col-6 ">
-                <div class="input-group ">
-                    <label class="label ">Pet Name</label>
-                    <select id="pet" ngModel name="pet_id" class="form-control" style="height:50px;" #petRef="ngModel" required>
-                        <option selected>Select your pet's name</option>        
-                        <option *ngFor="let pet of pet" value={{pet.pet_id}} >{{pet?.pet_name}}</option>
-                      </select>
-                   
-                </div>
-            </div>
-            <button type="submit" class="btn btn-md btn-primary" [disabled]="visitForm.invalid"><i class="fa fa-dot-circle-o"></i> Submit</button>
 
+
+            
+
+<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins ">
+    <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+            <div class="card-body">
+                <form method="POST" #visitForm="ngForm" (ngSubmit)="onSubmit(visitForm)">
+                        <div class="col-md-10">
+                            <div class="container">
+                                <ejs-multiselect id='multiselectelement'  ngModel name="services" class="form-control" style="height:50px;"
+                                 #serviceRef="ngModel" [dataSource]='service' 
+                                [fields]='fields'[placeholder]='placeholder' [popupHeight]='height'></ejs-multiselect>`
+                            </div>
+                            <div class="col-lg-7 col-md-10">
+                                <div class="container">
+                                    <div class="row justify-content-center ">
+                                        <div class="col-lg-7 col-md-10">
+                                            <div class="section_title text-center mb-95">
+                                                <div class="container">
+                            <ejs-schedule  width ='500px' height='500px'
+                            [startHour]="startHour" [endHour]="endHour" 
+                            id="Schedule" [eventSettings]="eventSettings"
+                            [currentView]="scheduleView"
+                            [appointmentSettings]="AppointmentSettings" 
+                            (actionComplete)="onActionComplete($event)"
+                            #scheduleObj [workDays]="workDays"
+                            [showWeekend]="showWeekend"
+                            [firstDayOfWeek]=2
+                            >
+                            </ejs-schedule>
+                            </div>
+                                            </div>
+                            
+                                        <!-- </div> -->
+                                    <!-- </div>     -->
+                        
+                            <div class="col-md-60">
+                                <div class="input-group ">
+                                    <label class="label ">Pet Name</label>
+                                    <select id="pet" ngModel name="pet_id" class="form-control" style="height:50px;" #petRef="ngModel" required>
+                                        <option selected>Select your pet's name</option>        
+                                        <option *ngFor="let pet of pet" value={{pet.pet_id}} >{{pet?.pet_name}}</option>
+                                      </select>
+                                   
+                                </div>
+                            </div>
+                    <!-- </div> -->
+                    <div class="row row-space ">
+                    </div>
+                    <button type="submit" class="btn btn-md btn-primary" [disabled]="visitForm.invalid"><i class="fa fa-dot-circle-o"></i> Submit</button>
+
+                <!-- </form> -->
+            </div>
+        </div>
+    </div>
+</div>            
