@@ -52,7 +52,7 @@ export class SchedulesComponent implements OnInit {
   public workDays: number[] = [1, 3, 4, 5];
   public showWeekend: boolean = false;
   constructor(private ScheduleService: ScheduleService, private token :TokenService,
-     private pets : PetsService, private services : ServicesService) {
+  private pets : PetsService, private services : ServicesService) {
     
   }
 
