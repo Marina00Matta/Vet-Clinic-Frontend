@@ -115,12 +115,12 @@ export class SchedulesComponent implements OnInit {
       });
       this.ScheduleService.getAllVisits(this.client_id).subscribe(
           (data: any)=>{
-            console.log('all visits',data.data);
+            // console.log('all visits',data.data);
             for (let x in data.data){
               var date = data.data[x].date;
               var time = data.data[x].time;
               var datetime = date+' '+time;
-              console.log(datetime);        
+              // console.log(datetime);        
               var y= {
                     Id: data.data[x].id,
                     Subject: 'Not Available',
@@ -130,9 +130,9 @@ export class SchedulesComponent implements OnInit {
                  };         
               this.visit.push(y);              
             }  
-            console.log('all visits',this.visit);
+            // console.log('all visits',this.visit);
             this.eventSettings = {dataSource:this.visit};  
-            console.log('eventdata',this.eventSettings); 
+            // console.log('eventdata',this.eventSettings); 
       });                           
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
   }
@@ -144,7 +144,7 @@ export class SchedulesComponent implements OnInit {
   onActionComplete(args) {
     var x = args.data[0].StartTime.getMonth();
     var y = x + 1;
-    console.log(y);
+    // console.log(y);
      this.time = (args.data[0].StartTime.getHours())+':'+(args.data[0].StartTime.getMinutes())+':'+(args.data[0].StartTime.getSeconds());
     this.date = args.data[0].StartTime.getFullYear()+'-'+(y)+'-'+(args.data[0].StartTime.getDate());
     // var date = args.data[0].EndTime.toLocaleDateString();  
@@ -155,11 +155,11 @@ export class SchedulesComponent implements OnInit {
         pet_id : null,
         status : 'Pending'
     }
-    console.log(args.data[0].EndTime.toLocaleDateString());
-    console.log((args.data[0].EndTime.getFullYear())+'-'+(y)+'-'+(args.data[0].EndTime.getDate()));
-    console.log('data ',args);
-    console.log(args.data[0].EndTime.getMonth())
-    console.log(typeof(args.data[0].EndTime));
+    // console.log(args.data[0].EndTime.toLocaleDateString());
+    // console.log((args.data[0].EndTime.getFullYear())+'-'+(y)+'-'+(args.data[0].EndTime.getDate()));
+    // console.log('data ',args);
+    // console.log(args.data[0].EndTime.getMonth())
+    // console.log(typeof(args.data[0].EndTime));
 
     if (args.requestType == "eventRemoved"){
       console.log('deleted');

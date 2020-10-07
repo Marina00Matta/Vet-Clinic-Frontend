@@ -18,6 +18,17 @@
     <div class="wrapper wrapper--w680">
         <div class="card card-4">
             <div class="card-body">
+                <ejs-schedule  width ='500px' height='500px'
+                [startHour]="startHour" [endHour]="endHour" 
+                id="Schedule" [eventSettings]="eventSettings"
+                [currentView]="scheduleView"
+                [appointmentSettings]="AppointmentSettings" 
+                (actionComplete)="onActionComplete($event)"
+                #scheduleObj [workDays]="workDays"
+                [showWeekend]="showWeekend"
+                [firstDayOfWeek]=2
+                >
+                </ejs-schedule>
                 <form method="POST" #visitForm="ngForm" (ngSubmit)="onSubmit(visitForm)">
                         <div class="col-md-10">
                             <div class="container">
@@ -31,17 +42,7 @@
                                         <div class="col-lg-7 col-md-10">
                                             <div class="section_title text-center mb-95">
                                                 <div class="container">
-                            <ejs-schedule  width ='500px' height='500px'
-                            [startHour]="startHour" [endHour]="endHour" 
-                            id="Schedule" [eventSettings]="eventSettings"
-                            [currentView]="scheduleView"
-                            [appointmentSettings]="AppointmentSettings" 
-                            (actionComplete)="onActionComplete($event)"
-                            #scheduleObj [workDays]="workDays"
-                            [showWeekend]="showWeekend"
-                            [firstDayOfWeek]=2
-                            >
-                            </ejs-schedule>
+                         
                             </div>
                                             </div>
                             

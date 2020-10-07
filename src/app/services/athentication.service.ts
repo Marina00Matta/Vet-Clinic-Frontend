@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { TokenService } from './token.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AthenticationService {
  
- private baseUrl='http://localhost:8000/api'
+ private baseUrl= environment.apiUrl;
   constructor(private http:HttpClient, private token :TokenService) { }
 
 

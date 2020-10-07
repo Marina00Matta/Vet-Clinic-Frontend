@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TokenService } from './token.service';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +10,7 @@ import { TokenService } from './token.service';
 export class PetsService {
 
   // TODO: Move to global config file , config.json or route.json
-  private PETOPIA_BACKEND = "http://localhost:8000";
+  private PETOPIA_BACKEND = environment.apiUrl;
 
   constructor(private httpClient: HttpClient) {
 
@@ -21,13 +23,13 @@ export class PetsService {
 
    // Add new pet
     registerPet(pet) {
-      return this.httpClient.post(this.PETOPIA_BACKEND + '/api/pet/add', pet);  
+      return this.httpClient.post(this.PETOPIA_BACKEND + '/pet/add', pet);  
    }
 
    getPets(){
-     return this.httpClient.get(this.PETOPIA_BACKEND + '/api/pets');
+     return this.httpClient.get(this.PETOPIA_BACKEND + '/pets');
    }
    getPetsByUser(userId){
-     return this.httpClient.get(this.PETOPIA_BACKEND + '/api/pets/' + userId);
+     return this.httpClient.get(this.PETOPIA_BACKEND + '/pets/' + userId);
    }
 }

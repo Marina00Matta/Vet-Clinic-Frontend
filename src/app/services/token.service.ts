@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { decode } from 'punycode';
 import * as jwt_decode from 'jwt-decode';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +9,9 @@ import * as jwt_decode from 'jwt-decode';
 export class TokenService {
 
   private iss={
-    login:"http://localhost:8000/api/login",
+    login:environment.apiUrl+'/login',
 
-    signup:"http://localhost:8000/api/signup"
+    signup:environment.apiUrl+'/signup'
   }
   constructor() { }
 

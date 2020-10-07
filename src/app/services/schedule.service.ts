@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 
 
@@ -7,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ScheduleService {
-  private Visit_url = "http://localhost:8000/api";
+  private Visit_url = environment.apiUrl;
 
   constructor(private httpClient: HttpClient) { }
 
